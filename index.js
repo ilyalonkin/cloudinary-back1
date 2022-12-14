@@ -50,7 +50,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }))
 app.use(cors());
 // app.use('/uploads', express.static('uploads'));
 
-app.listen(4444 || process.env.PORT, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
         console.log('Ошибка сервера', err);
     }
