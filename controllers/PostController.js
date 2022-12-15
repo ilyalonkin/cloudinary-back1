@@ -30,11 +30,6 @@ export const getAll = async (req, res) => {
        
         const posts = await PostModel.find().populate('author').exec();
         const postNew = posts.reverse();
-        alert(postNew);
-        // for (let item of postNew){
-        //     item.createdAt = '123';
-        // }
-
         res.json(postNew);
 
     } catch (err) {
