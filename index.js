@@ -11,7 +11,6 @@ import { getLastTags } from "./controllers/PostController.js";
 
 import checkAuth from "./utils/checkAuth.js";
 import handleValidationErrors from "./utils/handleValidationErrors.js";
-import multer from "multer";
 import cors from "cors";
 
 import { getLastComments } from "./controllers/CommentController.js";
@@ -34,21 +33,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
 const app = express();
 
-// const storage = multer.diskStorage({
-//     destination: (_, __, cb) => {
-//         cb(null, 'uploads');
-//     },
-//     filename: (_, file, cb) => {
-//         cb(null, file.originalname);
-//     },
-// });
-
-// const upload = multer({ storage });
-
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }))
 app.use(cors());
-// app.use('/uploads', express.static('uploads'));
 
 app.listen(process.env.PORT, (err) => {
     if (err) {
@@ -61,12 +48,6 @@ app.post('/auth/register', validationRegister, handleValidationErrors, register)
 app.patch('/auth/update', updateAvatar)
 app.post('/auth/login', validationLogin, handleValidationErrors, login);
 app.get('/auth/me', checkAuth, getMe);
-
-// app.post('/upload', upload.single('image'), (req, res) => {
-//     res.json({
-//         url: `/uploads/${req.file.originalname}`,
-//     })
-// });
 
 cloudinary.config({
     cloud_name: 'de4dqhc5m',
