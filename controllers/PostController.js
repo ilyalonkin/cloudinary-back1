@@ -1,4 +1,5 @@
 import PostModel from "../models/PostModel.js";
+import CommentModel from "../models/CommentModel.js";
 
 export const create = async (req, res) => {
     try {
@@ -110,6 +111,8 @@ export const remove = async (req, res) => {
     try {
 
         const postId = await req.params.id;
+
+        await CommentModel.deleteMany({ post: req.params.id }).populate('author');
 
         await PostModel.findOneAndDelete({
             _id: postId,
