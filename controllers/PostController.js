@@ -29,9 +29,9 @@ export const getAll = async (req, res) => {
     try {
        
         const posts = await PostModel.find().populate('author').exec();
-        const postNew = posts.reverse();
-        
-        res.json(postNew);
+        const postReverse = posts.reverse();
+        const postNewDateFormat = postReverse.map(post => ({...post._doc, createdAt: post.createdAt.toISOString().substring(0, 10)}))
+        res.json(postNewDateFormat);
 
     } catch (err) {
         console.log(err);
@@ -45,7 +45,8 @@ export const getPopularPosts = async (req, res) => {
     try {
         const posts = await PostModel.find().populate('author').exec();
         const postsSort = posts.sort((a, b) => b.viewsCount - a.viewsCount );
-        res.json(postsSort);
+        const postNewDateFormat = postsSort.map(post => ({...post._doc, createdAt: post.createdAt.toISOString().substring(0, 10)}))
+        res.json(postNewDateFormat);
 
     } catch (err) {
         console.log(err);
@@ -60,7 +61,8 @@ export const getTagPosts = async (req, res) => {
     const word = req.body.name;
     const wordNoSpace = word.trim();
     const posts = await PostModel.find({ tags: wordNoSpace }).populate('author')
-    res.send(posts);
+    const postNewDateFormat = posts.map(post => ({...post._doc, createdAt: post.createdAt.toISOString().substring(0, 10)}))
+    res.send(postNewDateFormat);
 };
 
 
