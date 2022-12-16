@@ -30,7 +30,7 @@ export const getAll = async (req, res) => {
        
         const posts = await PostModel.find().populate('author').exec();
         const postNew = posts.reverse();
-        const postMap = postNew.map(post => post.items.createdAt = 'Дата')
+        const postMap = postNew.map(post => post)
         res.json(postMap);
 
     } catch (err) {
