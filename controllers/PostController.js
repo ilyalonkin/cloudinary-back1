@@ -31,6 +31,7 @@ export const getAll = async (req, res) => {
         const posts = await PostModel.find().populate('author').exec();
         const postNew = posts.reverse();
         const postMap = postNew.map(post => post)
+        console.log(postMap);
         res.json(postMap);
 
     } catch (err) {
