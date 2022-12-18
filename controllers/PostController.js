@@ -92,7 +92,7 @@ export const getOne = async (req, res) => {
                         message: 'Статья не найдена'
                     });
                 }
-                const docMy = {...doc.data, createdAt: doc.data.createdAt.toISOString().substring(0, 10)};
+                const docMy = {...doc.data, createdAt: doc.createdAt.toISOString().substring(0, 10)};
 
                 res.json(docMy);
             }
