@@ -60,12 +60,10 @@ export const getPopularPosts = async (req, res) => {
 export const getTagPosts = async (req, res) => {
 
     const word = req.body.name;
-    const wordNoSpace = word.trim();
-    const posts = await PostModel.find({ tags: wordNoSpace }).populate('author')
+    const posts = await PostModel.find({ tags: word }).populate('author')
     const postNewDateFormat = posts.map(post => ({...post._doc, createdAt: post.createdAt.toISOString().substring(0, 10)}))
     res.send(postNewDateFormat);
 };
-
 
 export const getOne = async (req, res) => {
     try {
