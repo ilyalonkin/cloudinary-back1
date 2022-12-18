@@ -93,9 +93,9 @@ export const getOne = async (req, res) => {
                     });
                 }
 
-                // const docMy = {...doc, createdAt: doc.createdAt.toISOString().substring(0, 10)};
+                const docMy = {...doc, createdAt: doc.createdAt.toISOString().substring(0, 10)};
 
-                res.json(_doc);
+                res.json(docMy);
             }
         ).populate('author');
 
