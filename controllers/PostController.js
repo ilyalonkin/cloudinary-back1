@@ -92,10 +92,10 @@ export const getOne = async (req, res) => {
                         message: 'Статья не найдена'
                     });
                 }
-                const docData = {...doc.data};
+
                 // const docMy = {...doc, createdAt: doc.createdAt.toISOString().substring(0, 10)};
 
-                res.json(docData);
+                res.json(doc);
             }
         ).populate('author');
 
