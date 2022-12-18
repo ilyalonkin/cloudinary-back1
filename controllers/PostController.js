@@ -93,8 +93,8 @@ export const getOne = async (req, res) => {
                     });
                 }
 
-                const docMy = {...doc};
-                // const docMy = {...doc, createdAt: doc.createdAt.toISOString().substring(0, 10)};
+
+                const docMy = {...doc._doc, createdAt: _doc.createdAt.toISOString().substring(0, 10)};
 
                 res.json(docMy);
             }
