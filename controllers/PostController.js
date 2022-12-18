@@ -77,7 +77,7 @@ export const getOne = async (req, res) => {
             },
             {
                 $inc: { viewsCount: 1 },
-                createdAt: '123'
+                $createdAt: '123'
             },
             {
                 returnDocument: 'after',
