@@ -174,7 +174,11 @@ export const getLastTags = async (req, res) => {
     try {
         const posts = await PostModel.find().exec();
         const tags = posts.map(obj => obj.tags).flat().reverse();
-        res.send(tags);
+        const uniqueTags = tags.filter(function(item, pos){
+            return tags.indexOf(item)== pos;
+        });
+        res.send(uniqueTags);
+
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Не удалось получить теги' })
