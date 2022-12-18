@@ -95,7 +95,7 @@ export const getOne = async (req, res) => {
 
                 // const docMy = {...doc, createdAt: doc.createdAt.toISOString().substring(0, 10)};
 
-                res.json(doc);
+                res.json(_doc);
             }
         ).populate('author');
 
