@@ -70,14 +70,13 @@ export const getTagPosts = async (req, res) => {
 export const getOne = async (req, res) => {
     try {
         const postId = req.params.id;
-             
+
         PostModel.findOneAndUpdate(
             {
                 _id: postId,
             },
             {
                 $inc: { viewsCount: 1 },
-                createdAt: '123',
             },
             {
                 returnDocument: 'after',
