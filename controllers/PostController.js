@@ -70,35 +70,49 @@ export const getTagPosts = async (req, res) => {
 export const getOne = async (req, res) => {
     try {
         const postId = req.params.id;
-
-        PostModel.findOneAndUpdate(
-            {
-                _id: postId,
-            },
-            {
-                $inc: { viewsCount: 1 },
-                createdAt: '123',
-            },
-            {
-                returnDocument: 'after',
-            },
-            (err, doc) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).json({
-                        message: 'Не удалось вернуть статью'
-                    });
+        const postTarget = await PostModel.findOneAndUpdate(
+                {
+                    _id: postId,
+                },
+                {
+                    $inc: { viewsCount: 1 },
+                },
+                {
+                    returnDocument: 'after',
                 }
+        );
+        const postTargetNewDateForm = postTarget.map(post => ({...post._doc, createdAt: post.createdAt.toISOString().substring(0, 10)}));
 
-                if (!doc) {
-                    return res.status(404).json({
-                        message: 'Статья не найдена'
-                    });
-                }
+        res.send(postTargetNewDateForm);
 
-                res.json(doc);
-            }
-        ).populate('author');
+        // PostModel.findOneAndUpdate(
+        //     {
+        //         _id: postId,
+        //     },
+        //     {
+        //         $inc: { viewsCount: 1 },
+        //         createdAt: '123',
+        //     },
+        //     {
+        //         returnDocument: 'after',
+        //     },
+        //     (err, doc) => {
+        //         if (err) {
+        //             console.log(err);
+        //             return res.status(500).json({
+        //                 message: 'Не удалось вернуть статью'
+        //             });
+        //         }
+        //
+        //         if (!doc) {
+        //             return res.status(404).json({
+        //                 message: 'Статья не найдена'
+        //             });
+        //         }
+        //
+        //         res.json(doc);
+        //     }
+        // ).populate('author');
 
     } catch (err) {
         console.log(err);
