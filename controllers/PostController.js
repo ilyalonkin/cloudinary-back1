@@ -87,6 +87,7 @@ export const getOne = async (req, res) => {
                     });
                 }
 
+                
                 if (!doc) {
                     return res.status(404).json({
                         message: 'Статья не найдена'
